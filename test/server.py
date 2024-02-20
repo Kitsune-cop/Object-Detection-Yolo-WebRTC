@@ -40,9 +40,7 @@ async def getOffer():
     
 @router.get("/get_answer")
 async def getAnswer():
-    # print(data)
     if "answer" in data:
-        # answer = json.dumps(data["answer"])
         answer = data["answer"]
         print(f'Get_ANSWER --> ID:{answer["id"]}, Type:{answer["type"]}')
         del data["answer"]
