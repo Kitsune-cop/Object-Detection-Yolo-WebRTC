@@ -1,5 +1,6 @@
 # Object-Detection-Yolo-WebRTC
-* For setup \n
+* For setup
+  
   Webpage setup
   - npm install
   - npm install axios
