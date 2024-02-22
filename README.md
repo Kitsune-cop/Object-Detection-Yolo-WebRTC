@@ -1,12 +1,20 @@
 # Object-Detection-Yolo-WebRTC
-* -- run main.py for Server
+* For setup
+  Webpage setup
+  - npm install
+  - npm install axios
 
-* -- run test.py for send offer
-  
-  install aiortc, fastapi, opencv for python
+  python setup
+  - pip install aiortc
+  - pip install "fastapi[all]"
+  - pip install ultralytics
+  OR
+  - pip install -r requirement.txt
 
--  npm install for install pagkage
--  npm install axios
--  npm run dev for lauch webpage
-
-//run test.py before lauch webpage
+* For running
+  * Server
+    - python<version> main.py
+  * Client 1 (Python side)
+    - python<version> test.py
+  * Client 2 (Webpage)
+    - npm run dev
