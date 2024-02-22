@@ -95,6 +95,11 @@
                         data_text.textContent += channel.label+' <-- '+ping+'\n';
                         data_text.textContent += '---------------------------------\n';
                         channel.send(msg_button);
+                    }else if(typeof message === 'string' && message.startsWith("Detection")){
+                        data_text.textContent += ' \n';
+                        data_text.textContent += message+' \n';
+                        data_text.textContent += ' \n';
+
                     }else{
                         recv_msg = message;
                         data_text.textContent += channel.label+' --> '+msg_button+'\n';
@@ -143,7 +148,7 @@
 </script>
 <style>
     .container{
-        margin: 80px;
+        margin: 50px;
     }
     .main {
         display: grid;

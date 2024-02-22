@@ -22,11 +22,12 @@ pc = None
 msg = ""
 dc = None
 pc_id = "Client1"
+label_count = {}
 
 class VideoCapturer(VideoStreamTrack):
     def __init__(self):
         super().__init__()
-        self.cap = cv2.VideoCapture('tests.mp4')  # Change 0 to 1 if using an external USB webcam
+        self.cap = cv2.VideoCapture(0)  # Change 0 to 1 if using an external USB webcam
         self.picture_id = 0 
         self.model = YOLO("yolov8n.pt")
 
@@ -34,6 +35,8 @@ class VideoCapturer(VideoStreamTrack):
         """Draw detected bounding boxes on image frame"""
 
         # Create annotator object
+        global label_count
+        counts = {}
         annotator = Annotator(frame)
         for box in boxes:
             class_id = box.cls
@@ -43,6 +46,11 @@ class VideoCapturer(VideoStreamTrack):
             conf_label = float("{:.2f}".format(confidence.item()))
             label = f"{class_name} {conf_label}"
 
+            if class_name not in counts:
+                counts[class_name] = 0
+            counts[class_name] += 1
+            label_count = str(counts)
+
             # Draw bounding box
             annotator.box_label(box=coordinator, label=label, color=colors(class_id, True))
 
@@ -50,7 +58,7 @@ class VideoCapturer(VideoStreamTrack):
     
     async def detect_motorcycle(self,frame):
         """ Detect motorcycle from image frame """
-        confidence_threshold = 0.4
+        confidence_threshold = 0.5
         results = self.model.predict(frame, conf=confidence_threshold, verbose=False)
 
         for result in results:
@@ -182,11 +190,13 @@ async def main():
 
     dataChannelLog = dc.label
 
-    greeting_msg = ['Hello', 'Sup', 'Howdy', 'Hi', 'Hola', 'Greetings', 'Namaste']
+    greeting_msg = ['Hello', 'Sup', 'Howdy', 'Hi', 'Hola', 'Greetings', 'Ohaiyo']
 
     bye_msg = ['Good bye','Bye','Bye Bye','Good night','Sayonara']
 
     async def on_message(message):
+        dc.send(f"Detection: {label_count[1:-1]}")
+
         if message in greeting_msg:
             dc.send("Greeting accept")
             ChannelLog = dc.label + ' --> Greeting accept \n'
