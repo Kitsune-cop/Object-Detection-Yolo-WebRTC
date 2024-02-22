@@ -5,11 +5,13 @@
   - npm install
   - npm install axios
 
-  python setup
+  Python setup
   - pip install aiortc
   - pip install "fastapi[all]"
   - pip install ultralytics
-  OR
+    
+    OR
+  
   - pip install -r requirement.txt
 
 * For running
